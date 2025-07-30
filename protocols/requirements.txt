@@ -1,0 +1,16 @@
+# Requirements for Section 5 - Protocols and Real-Time Data
+# Install with: pip install -r requirements.txt
+
+# Task 7: MQTT Protocol
+paho-mqtt==1.6.1
+
+# Task 8: gRPC Service
+grpcio==1.60.0
+grpcio-tools==1.60.0
+protobuf==4.25.1
+
+# Task 9: Redis Caching
+redis==5.0.1
+
+# Common dependencies
+typing-extensions==4.8.0

@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package restaurant;
+
+// Restaurant service definition
+service RestaurantService {
+    // Get restaurant details by ID
+    rpc GetRestaurant(RestaurantRequest) returns (RestaurantResponse);
+    
+    // Get multiple restaurants
+    rpc GetRestaurants(RestaurantsRequest) returns (RestaurantsResponse);
+    
+    // Add a new restaurant
+    rpc AddRestaurant(AddRestaurantRequest) returns (RestaurantResponse);
+    
+    // Update restaurant details
+    rpc UpdateRestaurant(UpdateRestaurantRequest) returns (RestaurantResponse);
+    
+    // Delete a restaurant
+    rpc DeleteRestaurant(DeleteRestaurantRequest) returns (DeleteRestaurantResponse);
+}
+
+// Request message for getting a single restaurant
+message RestaurantRequest {
+    string restaurant_id = 1;
+}
+
+// Request message for getting multiple restaurants
+message RestaurantsRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+    string city = 3;
+    double min_rating = 4;
+}
+
+// Request message for adding a restaurant
+message AddRestaurantRequest {
+    string name = 1;
+    string address = 2;
+    string phone_number = 3;
+    double rating = 4;
+    string cuisine_type = 5;
+    string description = 6;
+}
+
+// Request message for updating a restaurant
+message UpdateRestaurantRequest {
+    string restaurant_id = 1;
+    string name = 2;
+    string address = 3;
+    string phone_number = 4;
+    double rating = 5;
+    string cuisine_type = 6;
+    string description = 7;
+}
+
+// Request message for deleting a restaurant
+message DeleteRestaurantRequest {
+    string restaurant_id = 1;
+}
+
+// Restaurant details message
+message Restaurant {
+    string restaurant_id = 1;
+    string name = 2;
+    string address = 3;
+    string phone_number = 4;
+    double rating = 5;
+    string cuisine_type = 6;
+    string description = 7;
+    string created_at = 8;
+    string updated_at = 9;
+    bool is_active = 10;
+    repeated MenuItem menu_items = 11;
+}
+
+// Menu item message
+message MenuItem {
+    string item_id = 1;
+    string name = 2;
+    string description = 3;
+    double price = 4;
+    string category = 5;
+    bool is_available = 6;
+}
+
+// Response message for single restaurant
+message RestaurantResponse {
+    bool success = 1;
+    string message = 2;
+    Restaurant restaurant = 3;
+}
+
+// Response message for multiple restaurants
+message RestaurantsResponse {
+    bool success = 1;
+    string message = 2;
+    repeated Restaurant restaurants = 3;
+    int32 total_count = 4;
+}
+
+// Response message for delete operation
+message DeleteRestaurantResponse {
+    bool success = 1;
+    string message = 2;
+    string deleted_restaurant_id = 3;
+}

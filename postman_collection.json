@@ -1,0 +1,797 @@
+{
+	"info": {
+		"_postman_id": "restaurant-fullstack-tests",
+		"name": "Restaurant Full-Stack API Tests",
+		"description": "Comprehensive Postman collection to test Django Backend, gRPC Service, and Redis Caching implementations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Django Backend API",
+			"item": [
+				{
+					"name": "Get All Restaurants",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{django_base_url}}/api/restaurants/",
+							"host": [
+								"{{django_base_url}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								""
+							]
+						},
+						"description": "Fetch all restaurants from Django backend"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Restaurant by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{django_base_url}}/api/restaurants/1/",
+							"host": [
+								"{{django_base_url}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"1",
+								""
+							]
+						},
+						"description": "Fetch a specific restaurant by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Restaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Postman Test Restaurant\",\n    \"address\": \"123 API Test St, Postman City, PC 12345\",\n    \"phone_number\": \"+1-555-POSTMAN\",\n    \"rating\": 4.7\n}"
+						},
+						"url": {
+							"raw": "{{django_base_url}}/api/restaurants/",
+							"host": [
+								"{{django_base_url}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								""
+							]
+						},
+						"description": "Create a new restaurant via Django API"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Restaurant",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Postman Restaurant\",\n    \"address\": \"456 Updated API St, Postman City, PC 12345\",\n    \"phone_number\": \"+1-555-UPDATED\",\n    \"rating\": 4.9\n}"
+						},
+						"url": {
+							"raw": "{{django_base_url}}/api/restaurants/1/",
+							"host": [
+								"{{django_base_url}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"1",
+								""
+							]
+						},
+						"description": "Update an existing restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Restaurant",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{django_base_url}}/api/restaurants/1/",
+							"host": [
+								"{{django_base_url}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"1",
+								""
+							]
+						},
+						"description": "Delete a restaurant by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Restaurant Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{django_base_url}}/api/restaurants/stats/",
+							"host": [
+								"{{django_base_url}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								"stats",
+								""
+							]
+						},
+						"description": "Get restaurant statistics (count, average rating)"
+					},
+					"response": []
+				}
+			],
+			"description": "Test Django REST API endpoints for restaurant management"
+		},
+		{
+			"name": "gRPC HTTP Gateway",
+			"item": [
+				{
+					"name": "gRPC - Get Restaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurant_id\": \"rest_001\"\n}"
+						},
+						"url": {
+							"raw": "{{grpc_gateway_url}}/restaurant/get",
+							"host": [
+								"{{grpc_gateway_url}}"
+							],
+							"path": [
+								"restaurant",
+								"get"
+							]
+						},
+						"description": "Get restaurant details via gRPC HTTP gateway"
+					},
+					"response": []
+				},
+				{
+					"name": "gRPC - Get All Restaurants",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"limit\": 10,\n    \"offset\": 0,\n    \"city\": \"\",\n    \"min_rating\": 0.0\n}"
+						},
+						"url": {
+							"raw": "{{grpc_gateway_url}}/restaurant/list",
+							"host": [
+								"{{grpc_gateway_url}}"
+							],
+							"path": [
+								"restaurant",
+								"list"
+							]
+						},
+						"description": "Get multiple restaurants with filtering"
+					},
+					"response": []
+				},
+				{
+					"name": "gRPC - Add Restaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"gRPC Test Restaurant\",\n    \"address\": \"789 gRPC Ave, Protocol City, PC 54321\",\n    \"phone_number\": \"+1-555-GRPC\",\n    \"rating\": 4.8,\n    \"cuisine_type\": \"International\",\n    \"description\": \"A restaurant created via gRPC for testing\"\n}"
+						},
+						"url": {
+							"raw": "{{grpc_gateway_url}}/restaurant/add",
+							"host": [
+								"{{grpc_gateway_url}}"
+							],
+							"path": [
+								"restaurant",
+								"add"
+							]
+						},
+						"description": "Add new restaurant via gRPC"
+					},
+					"response": []
+				},
+				{
+					"name": "gRPC - Update Restaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurant_id\": \"rest_001\",\n    \"name\": \"Updated gRPC Restaurant\",\n    \"address\": \"999 Updated gRPC Blvd, Protocol City, PC 54321\",\n    \"phone_number\": \"+1-555-UPDATED-GRPC\",\n    \"rating\": 4.95,\n    \"cuisine_type\": \"Fusion\",\n    \"description\": \"Updated restaurant via gRPC testing\"\n}"
+						},
+						"url": {
+							"raw": "{{grpc_gateway_url}}/restaurant/update",
+							"host": [
+								"{{grpc_gateway_url}}"
+							],
+							"path": [
+								"restaurant",
+								"update"
+							]
+						},
+						"description": "Update restaurant via gRPC"
+					},
+					"response": []
+				},
+				{
+					"name": "gRPC - Delete Restaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurant_id\": \"rest_003\"\n}"
+						},
+						"url": {
+							"raw": "{{grpc_gateway_url}}/restaurant/delete",
+							"host": [
+								"{{grpc_gateway_url}}"
+							],
+							"path": [
+								"restaurant",
+								"delete"
+							]
+						},
+						"description": "Delete restaurant via gRPC"
+					},
+					"response": []
+				}
+			],
+			"description": "Test gRPC service via HTTP gateway endpoints"
+		},
+		{
+			"name": "Redis Cache Testing",
+			"item": [
+				{
+					"name": "Redis - Get Restaurant (Cached)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{redis_gateway_url}}/cache/restaurant/rest_001",
+							"host": [
+								"{{redis_gateway_url}}"
+							],
+							"path": [
+								"cache",
+								"restaurant",
+								"rest_001"
+							]
+						},
+						"description": "Get restaurant from Redis cache (first call will cache, second will be from cache)"
+					},
+					"response": []
+				},
+				{
+					"name": "Redis - Get All Restaurants (Cached)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{redis_gateway_url}}/cache/restaurants/all",
+							"host": [
+								"{{redis_gateway_url}}"
+							],
+							"path": [
+								"cache",
+								"restaurants",
+								"all"
+							]
+						},
+						"description": "Get all restaurants with caching"
+					},
+					"response": []
+				},
+				{
+					"name": "Redis - Search Restaurants (Cached)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"pizza\",\n    \"cuisine_type\": \"Italian\",\n    \"min_rating\": 4.0\n}"
+						},
+						"url": {
+							"raw": "{{redis_gateway_url}}/cache/search",
+							"host": [
+								"{{redis_gateway_url}}"
+							],
+							"path": [
+								"cache",
+								"search"
+							]
+						},
+						"description": "Search restaurants with caching"
+					},
+					"response": []
+				},
+				{
+					"name": "Redis - Cache Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{redis_gateway_url}}/cache/stats",
+							"host": [
+								"{{redis_gateway_url}}"
+							],
+							"path": [
+								"cache",
+								"stats"
+							]
+						},
+						"description": "Get Redis cache statistics"
+					},
+					"response": []
+				},
+				{
+					"name": "Redis - Invalidate Restaurant Cache",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{redis_gateway_url}}/cache/restaurant/rest_001",
+							"host": [
+								"{{redis_gateway_url}}"
+							],
+							"path": [
+								"cache",
+								"restaurant",
+								"rest_001"
+							]
+						},
+						"description": "Invalidate cache for specific restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "Redis - Clear All Cache",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{redis_gateway_url}}/cache/clear",
+							"host": [
+								"{{redis_gateway_url}}"
+							],
+							"path": [
+								"cache",
+								"clear"
+							]
+						},
+						"description": "Clear all restaurant-related cache"
+					},
+					"response": []
+				},
+				{
+					"name": "Redis - Performance Benchmark",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"iterations\": 10,\n    \"restaurant_ids\": [\"rest_001\", \"rest_002\", \"rest_003\"]\n}"
+						},
+						"url": {
+							"raw": "{{redis_gateway_url}}/cache/benchmark",
+							"host": [
+								"{{redis_gateway_url}}"
+							],
+							"path": [
+								"cache",
+								"benchmark"
+							]
+						},
+						"description": "Run performance benchmark comparing cache vs database"
+					},
+					"response": []
+				}
+			],
+			"description": "Test Redis caching functionality via HTTP gateway"
+		},
+		{
+			"name": "MQTT Testing (WebSocket)",
+			"item": [
+				{
+					"name": "MQTT - Publish Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurant_name\": \"The Golden Spoon\",\n    \"restaurant_id\": \"rest_001\",\n    \"customer_name\": \"Postman Tester\",\n    \"customer_phone\": \"+1-555-POSTMAN\",\n    \"delivery_address\": \"123 Postman St, Test City, TC 12345\",\n    \"items\": [\n        {\n            \"name\": \"Margherita Pizza\",\n            \"quantity\": 1,\n            \"price\": 15.99,\n            \"notes\": \"Extra cheese\"\n        },\n        {\n            \"name\": \"Caesar Salad\",\n            \"quantity\": 1,\n            \"price\": 8.99,\n            \"notes\": \"Dressing on the side\"\n        }\n    ],\n    \"total_amount\": 24.98,\n    \"payment_method\": \"credit_card\",\n    \"special_instructions\": \"Ring doorbell twice\"\n}"
+						},
+						"url": {
+							"raw": "{{mqtt_gateway_url}}/mqtt/publish",
+							"host": [
+								"{{mqtt_gateway_url}}"
+							],
+							"path": [
+								"mqtt",
+								"publish"
+							]
+						},
+						"description": "Publish an order to MQTT topic restaurant/orders"
+					},
+					"response": []
+				},
+				{
+					"name": "MQTT - Get Recent Messages",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{mqtt_gateway_url}}/mqtt/messages?topic=restaurant/orders&limit=10",
+							"host": [
+								"{{mqtt_gateway_url}}"
+							],
+							"path": [
+								"mqtt",
+								"messages"
+							],
+							"query": [
+								{
+									"key": "topic",
+									"value": "restaurant/orders"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Get recent MQTT messages from restaurant/orders topic"
+					},
+					"response": []
+				},
+				{
+					"name": "MQTT - Get Order Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{mqtt_gateway_url}}/mqtt/status?topic=restaurant/orders/status&limit=20",
+							"host": [
+								"{{mqtt_gateway_url}}"
+							],
+							"path": [
+								"mqtt",
+								"status"
+							],
+							"query": [
+								{
+									"key": "topic",
+									"value": "restaurant/orders/status"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						},
+						"description": "Get order status updates from MQTT"
+					},
+					"response": []
+				}
+			],
+			"description": "Test MQTT functionality via HTTP gateway"
+		},
+		{
+			"name": "Integration Tests",
+			"item": [
+				{
+					"name": "Full Stack Test - Create Restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test Django API creation",
+									"pm.test(\"Restaurant created successfully\", function () {",
+									"    pm.response.to.have.status(201);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('id');",
+									"    pm.globals.set('created_restaurant_id', jsonData.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Integration Test Restaurant\",\n    \"address\": \"999 Integration St, Full Stack City, FSC 99999\",\n    \"phone_number\": \"+1-555-INTEGRATION\",\n    \"rating\": 4.5\n}"
+						},
+						"url": {
+							"raw": "{{django_base_url}}/api/restaurants/",
+							"host": [
+								"{{django_base_url}}"
+							],
+							"path": [
+								"api",
+								"restaurants",
+								""
+							]
+						},
+						"description": "Create restaurant and store ID for further tests"
+					},
+					"response": []
+				},
+				{
+					"name": "Full Stack Test - Cache Restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test caching functionality",
+									"pm.test(\"Restaurant cached successfully\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('name');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{redis_gateway_url}}/cache/restaurant/{{created_restaurant_id}}",
+							"host": [
+								"{{redis_gateway_url}}"
+							],
+							"path": [
+								"cache",
+								"restaurant",
+								"{{created_restaurant_id}}"
+							]
+						},
+						"description": "Cache the created restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "Full Stack Test - Publish Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test MQTT publishing",
+									"pm.test(\"Order published successfully\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('success', true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurant_name\": \"Integration Test Restaurant\",\n    \"restaurant_id\": \"{{created_restaurant_id}}\",\n    \"customer_name\": \"Integration Tester\",\n    \"customer_phone\": \"+1-555-INTEGRATION\",\n    \"delivery_address\": \"999 Integration St, Full Stack City, FSC 99999\",\n    \"items\": [\n        {\n            \"name\": \"Test Dish\",\n            \"quantity\": 1,\n            \"price\": 19.99,\n            \"notes\": \"Integration test order\"\n        }\n    ],\n    \"total_amount\": 19.99,\n    \"payment_method\": \"credit_card\",\n    \"special_instructions\": \"This is an integration test\"\n}"
+						},
+						"url": {
+							"raw": "{{mqtt_gateway_url}}/mqtt/publish",
+							"host": [
+								"{{mqtt_gateway_url}}"
+							],
+							"path": [
+								"mqtt",
+								"publish"
+							]
+						},
+						"description": "Publish order for the created restaurant"
+					},
+					"response": []
+				}
+			],
+			"description": "Integration tests combining multiple services"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Set default values if not already set",
+					"if (!pm.variables.get('django_base_url')) {",
+					"    pm.variables.set('django_base_url', 'http://127.0.0.1:8000');",
+					"}",
+					"if (!pm.variables.get('grpc_gateway_url')) {",
+					"    pm.variables.set('grpc_gateway_url', 'http://127.0.0.1:8001');",
+					"}",
+					"if (!pm.variables.get('redis_gateway_url')) {",
+					"    pm.variables.set('redis_gateway_url', 'http://127.0.0.1:8002');",
+					"}",
+					"if (!pm.variables.get('mqtt_gateway_url')) {",
+					"    pm.variables.set('mqtt_gateway_url', 'http://127.0.0.1:8003');",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "django_base_url",
+			"value": "http://127.0.0.1:8000",
+			"type": "string",
+			"description": "Django backend server URL"
+		},
+		{
+			"key": "grpc_gateway_url",
+			"value": "http://127.0.0.1:8001",
+			"type": "string",
+			"description": "gRPC HTTP gateway URL"
+		},
+		{
+			"key": "redis_gateway_url",
+			"value": "http://127.0.0.1:8002",
+			"type": "string",
+			"description": "Redis cache HTTP gateway URL"
+		},
+		{
+			"key": "mqtt_gateway_url",
+			"value": "http://127.0.0.1:8003",
+			"type": "string",
+			"description": "MQTT HTTP gateway URL"
+		}
+	]
+}

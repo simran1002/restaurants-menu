@@ -1,0 +1,28 @@
+# Full-Stack Restaurant Application Dependencies
+# Install with: pip install -r requirements.txt
+
+# Django Backend
+django>=4.2.0
+djangorestframework>=3.14.0
+django-cors-headers>=4.0.0
+psycopg2-binary>=2.9.0  # PostgreSQL adapter
+
+# Protocol Implementations
+paho-mqtt>=1.6.0        # MQTT client
+grpcio>=1.50.0          # gRPC runtime
+grpcio-tools>=1.50.0    # gRPC tools for code generation
+protobuf>=4.21.0        # Protocol Buffers
+redis>=4.5.0            # Redis client
+
+# HTTP Gateways
+flask>=2.3.0            # Web framework for gateways
+flask-cors>=4.0.0       # CORS support
+
+# Development and Testing
+requests>=2.28.0        # HTTP client for testing
+pytest>=7.2.0           # Testing framework
+pytest-django>=4.5.0    # Django testing support
+
+# Optional: Production deployment
+gunicorn>=20.1.0        # WSGI server
+whitenoise>=6.4.0       # Static file serving
