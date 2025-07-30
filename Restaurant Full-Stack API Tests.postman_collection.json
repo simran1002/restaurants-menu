@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "restaurant-fullstack-tests",
+		"_postman_id": "a802e0a7-885a-4a48-b1eb-0e30ab0ba636",
 		"name": "Restaurant Full-Stack API Tests",
 		"description": "Comprehensive Postman collection to test Django Backend, gRPC Service, and Redis Caching implementations",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24106690"
 	},
 	"item": [
 		{
@@ -189,7 +190,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"restaurant_id\": \"rest_001\"\n}"
+							"raw": "{\n    \"id\": \"rest_001\"\n}"
 						},
 						"url": {
 							"raw": "{{grpc_gateway_url}}/restaurant/get",
@@ -264,7 +265,7 @@
 				{
 					"name": "gRPC - Update Restaurant",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -292,7 +293,7 @@
 				{
 					"name": "gRPC - Delete Restaurant",
 					"request": {
-						"method": "POST",
+						"method": "DELETE",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -301,7 +302,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"restaurant_id\": \"rest_003\"\n}"
+							"raw": "{\n    \"id\": \"rest_003\"\n}"
 						},
 						"url": {
 							"raw": "{{grpc_gateway_url}}/restaurant/delete",
@@ -771,27 +772,19 @@
 	"variable": [
 		{
 			"key": "django_base_url",
-			"value": "http://127.0.0.1:8000",
-			"type": "string",
-			"description": "Django backend server URL"
+			"value": "http://127.0.0.1:8000"
 		},
 		{
 			"key": "grpc_gateway_url",
-			"value": "http://127.0.0.1:8001",
-			"type": "string",
-			"description": "gRPC HTTP gateway URL"
+			"value": "http://127.0.0.1:8001"
 		},
 		{
 			"key": "redis_gateway_url",
-			"value": "http://127.0.0.1:8002",
-			"type": "string",
-			"description": "Redis cache HTTP gateway URL"
+			"value": "http://127.0.0.1:8002"
 		},
 		{
 			"key": "mqtt_gateway_url",
-			"value": "http://127.0.0.1:8003",
-			"type": "string",
-			"description": "MQTT HTTP gateway URL"
+			"value": "http://127.0.0.1:8003"
 		}
 	]
 }

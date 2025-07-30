@@ -1,5 +1,4 @@
 -- SQL Query to find the top 5 highest-rated restaurants
--- Optimized for performance with proper indexing considerations
 
 SELECT 
     id,
@@ -11,38 +10,3 @@ FROM restaurants
 WHERE rating IS NOT NULL  -- Exclude restaurants without ratings
 ORDER BY rating DESC, name ASC  -- Primary sort by rating (desc), secondary by name (asc) for consistency
 LIMIT 5;
-
--- Performance Optimization Notes:
--- 1. Create an index on the rating column for faster sorting:
---    CREATE INDEX idx_restaurants_rating ON restaurants(rating DESC);
---
--- 2. For even better performance with tie-breaking, create a composite index:
---    CREATE INDEX idx_restaurants_rating_name ON restaurants(rating DESC, name ASC);
---
--- 3. If you need to exclude inactive restaurants, add a WHERE condition:
---    WHERE rating IS NOT NULL AND is_active = true
---
--- 4. The query uses LIMIT which is efficient in PostgreSQL
---    and will stop processing once 5 records are found
-
--- Alternative query with additional restaurant details:
-/*
-SELECT 
-    r.id,
-    r.name,
-    r.address,
-    r.phone_number,
-    r.rating,
-    ROUND(r.rating, 2) as formatted_rating,
-    CASE 
-        WHEN r.rating >= 4.5 THEN 'Excellent'
-        WHEN r.rating >= 4.0 THEN 'Very Good'
-        WHEN r.rating >= 3.5 THEN 'Good'
-        WHEN r.rating >= 3.0 THEN 'Average'
-        ELSE 'Below Average'
-    END as rating_category
-FROM restaurants r
-WHERE r.rating IS NOT NULL
-ORDER BY r.rating DESC, r.name ASC
-LIMIT 5;
-*/

@@ -8,11 +8,7 @@ from .serializers import RestaurantSerializer
 
 
 class RestaurantListCreateView(generics.ListCreateAPIView):
-    """
-    API view to list all restaurants and create new ones
-    GET: List all restaurants
-    POST: Create a new restaurant
-    """
+    
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     
@@ -53,12 +49,7 @@ class RestaurantListCreateView(generics.ListCreateAPIView):
 
 
 class RestaurantDetailView(generics.RetrieveUpdateDestroyAPIView):
-    """
-    API view to retrieve, update, or delete a specific restaurant
-    GET: Retrieve restaurant details
-    PUT/PATCH: Update restaurant
-    DELETE: Delete restaurant
-    """
+    
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     
@@ -76,9 +67,7 @@ class RestaurantDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 @api_view(['GET'])
 def restaurant_stats(request):
-    """
-    API endpoint to get restaurant statistics
-    """
+    
     total_restaurants = Restaurant.objects.count()
     if total_restaurants > 0:
         avg_rating = Restaurant.objects.aggregate(
